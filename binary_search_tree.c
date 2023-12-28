@@ -8,40 +8,60 @@ struct node {
 
 };
 
-struct node * createnode(int data) {
+struct node *createnode(int data) {
     struct node *n;
     n = (struct node *) malloc(sizeof(struct node));
     n->data = data;
     n->left = NULL;
     n->right = NULL;
     return n;
-    
+}
+
+void preorder(struct node *root) {
+    if(root != NULL) {
+        printf("%d ", root -> data);
+        preorder(root -> left);
+        preorder(root -> right);
+    }
+} 
+
+void postorder(struct node *root) {
+    if(root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->data);
+    }
 }
 
 void inorder(struct node *root) {
     if(root != NULL) {
-        inorder(root->left);
-        printf("%d ", root->data );
+        inorder(root-> left);
+        printf("%d ", root->data);
         inorder(root->right);
     }
 }
 
+int isBST(struct node * root ) {
+    static struct node *prev = NULL;
 
-    int isBST(struct node *root) {
-        struct node *prev = NULL;
-        if(root != NULL) {
-            if(!isBST(root->left)) {
-                return 0;
-            }
-            if(prev != NULL && root -> data <= prev->data) {
-                return 0;
-            }
-            prev = root;
-            return isBST(root -> right);
-        } else {
-            return 1;
+    if(root != NULL) {
+        if(!isBST(root -> left)) {
+            return 0;
         }
+
+        if(prev != NULL && root->data <= prev->data) {
+            return 0; 
+        }
+
+        prev = root;
+        return isBST(root -> right);
     }
+
+    else {
+        return 1;
+    }
+}
+
 
     int main() {
 
