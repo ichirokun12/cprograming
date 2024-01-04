@@ -153,7 +153,7 @@ struct node *deleteNode(struct node *root, int value)
     {
         root->left = deleteNode(root->left, value);
     }
-    else if (value > root->data)  // Corrected condition here
+    else if (value > root->data)  
     {
         root->right = deleteNode(root->right, value);
     }
